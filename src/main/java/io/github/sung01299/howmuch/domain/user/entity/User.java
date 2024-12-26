@@ -1,6 +1,6 @@
 package io.github.sung01299.howmuch.domain.user.entity;
 
-import io.github.sung01299.howmuch.domain.favorites.Favorites;
+import io.github.sung01299.howmuch.domain.favorites.entity.Favorites;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
