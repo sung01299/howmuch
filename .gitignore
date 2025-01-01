@@ -38,3 +38,6 @@ out/
 
 ### GitHub
 .DS_Store
+
+### API
+application-API-KEY.properties
