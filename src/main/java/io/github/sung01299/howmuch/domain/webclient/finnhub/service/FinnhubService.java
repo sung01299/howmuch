@@ -1,6 +1,7 @@
 package io.github.sung01299.howmuch.domain.webclient.finnhub.service;
 
-import io.github.sung01299.howmuch.domain.webclient.finnhub.dto.FinnHubResponseDTO;
+import io.github.sung01299.howmuch.domain.webclient.finnhub.dto.FinnHubResponse;
+import io.github.sung01299.howmuch.domain.webclient.finnhub.dto.PriceDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,7 +15,7 @@ public class FinnhubService {
     @Value("${FINNHUB_API_KEY}")
     private String FINNHUB_API_KEY;
 
-    public void quote(String symbol) {
+    public PriceDTO quote(String symbol) {
 
         // WebClient basic config
         WebClient webClient = WebClient.builder()
@@ -23,25 +24,22 @@ public class FinnhubService {
                 .build();
 
         // api request
-        Mono<FinnHubResponseDTO> response = webClient.get()
+        Mono<FinnHubResponse> response = webClient.get()
                 .uri(uriBuilder ->
                         uriBuilder.path("/api/v1/quote/")
                                 .queryParam("symbol", symbol)
                                 .queryParam("token", FINNHUB_API_KEY)
                                 .build())
                 .retrieve()
-                .bodyToMono(FinnHubResponseDTO.class);
+                .bodyToMono(FinnHubResponse.class);
 
-        FinnHubResponseDTO apiResponse = response.block();
+        FinnHubResponse apiResponse = response.block();
 
-        System.out.println("CurrentPrice: " + apiResponse.getC());
-        System.out.println("Change: " + apiResponse.getD());
-        System.out.println("PercentChange: " + apiResponse.getDp());
-        System.out.println("HighPrice: " + apiResponse.getH());
-        System.out.println("LowPrice: " + apiResponse.getL());
-        System.out.println("OpenPrice: " + apiResponse.getO());
-        System.out.println("ClosePrice: " + apiResponse.getC());
-        System.out.println("TimeStamp: " + apiResponse.getT());
+        PriceDTO price = new PriceDTO();
+        price.setSymbol(symbol);
+        price.setPrice(apiResponse.getC());
+
+        return price;
 
     }
 }
