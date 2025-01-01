@@ -1,5 +1,7 @@
-package io.github.sung01299.howmuch.domain.webclient.service.coincap;
+package io.github.sung01299.howmuch.domain.webclient.coincap.service;
 
+import io.github.sung01299.howmuch.domain.webclient.coincap.dto.AssetData;
+import io.github.sung01299.howmuch.domain.webclient.coincap.dto.CoinCapResponseDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -7,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-public class WebClientService {
+public class CoinCapService {
 
     public void get(String asset) {
 
@@ -18,14 +20,14 @@ public class WebClientService {
                 .build();
 
         // api request
-        Mono<ApiResponse> response = webClient.get()
+        Mono<CoinCapResponseDTO> response = webClient.get()
                 .uri(uriBuilder ->
                         uriBuilder.path("/v2/assets/" + asset)
                                 .build())
                 .retrieve()
-                .bodyToMono(ApiResponse.class);
+                .bodyToMono(CoinCapResponseDTO.class);
 
-        ApiResponse apiResponse = response.block();
+        CoinCapResponseDTO apiResponse = response.block();
 
         if (apiResponse != null) {
             AssetData assetData = apiResponse.getData();

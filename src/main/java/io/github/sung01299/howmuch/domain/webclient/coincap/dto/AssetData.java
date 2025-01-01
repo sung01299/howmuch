@@ -1,4 +1,4 @@
-package io.github.sung01299.howmuch.domain.webclient.service.coincap;
+package io.github.sung01299.howmuch.domain.webclient.coincap.dto;
 
 import lombok.Getter;
 

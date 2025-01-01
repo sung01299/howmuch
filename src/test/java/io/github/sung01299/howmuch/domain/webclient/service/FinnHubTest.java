@@ -1,6 +1,6 @@
 package io.github.sung01299.howmuch.domain.webclient.service;
 
-import io.github.sung01299.howmuch.domain.webclient.coincap.service.CoinCapService;
+import io.github.sung01299.howmuch.domain.webclient.finnhub.service.FinnhubService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
-class WebClientServiceTest {
+public class FinnHubTest {
 
-    @Autowired private CoinCapService webClientService;
+    @Autowired
+    FinnhubService finnhubService;
 
     @Test
-    void get() {
-        webClientService.get("ethereum");
+    public void get() {
+        finnhubService.quote("MSFT");
     }
-
 }

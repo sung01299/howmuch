@@ -1,0 +1,8 @@
+### FinnHub
+GET https://finnhub.io/api/v1/quote?symbol=AAPL&token=
+Accept: application/json
+
+### Coincap
+GET api.coincap.io/v2/assets/bitcoin
+Accept: application/json
+
