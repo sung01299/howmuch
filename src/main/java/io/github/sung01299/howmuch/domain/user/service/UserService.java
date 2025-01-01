@@ -2,19 +2,20 @@ package io.github.sung01299.howmuch.domain.user.service;
 
 import io.github.sung01299.howmuch.domain.user.entity.User;
 import io.github.sung01299.howmuch.domain.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public Long join(User user) {
         userRepository.save(user);
         return user.getUserId();

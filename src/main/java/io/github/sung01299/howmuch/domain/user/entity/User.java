@@ -10,13 +10,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter
+@Getter @Setter
 public class User {
 
     @Id
     @GeneratedValue
     @Column(name = "user_id")
     private Long userId;
+
+    private String userName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Favorites> favorites = new ArrayList<>();

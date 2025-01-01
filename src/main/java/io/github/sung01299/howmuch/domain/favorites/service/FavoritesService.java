@@ -15,12 +15,17 @@ public class FavoritesService {
 
     private final FavoritesRepository favoritesRepository;
 
-    public List<Favorites> getFavorites(Long userId) {
-        return favoritesRepository.getFavorites(userId);
+    @Transactional(readOnly = true)
+    public List<Favorites> getAllFavorites(Long userId) {
+        return favoritesRepository.getAllFavorites(userId);
     }
 
     public void addFavorites(Long userId, String ticker, String fullName) {
         favoritesRepository.addFavorites(userId, ticker, fullName);
+    }
+
+    public void removeFavorites(Long userId, String ticker) {
+        favoritesRepository.removeFavorites(userId, ticker);
     }
 
 }
