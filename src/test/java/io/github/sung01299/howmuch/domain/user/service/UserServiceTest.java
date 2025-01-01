@@ -34,15 +34,18 @@ class UserServiceTest {
         User user1 = new User();
         User user2 = new User();
         User user3 = new User();
+        User user4 = new User();
 
         user1.setUserName("강해린");
         user2.setUserName("김민지");
         user3.setUserName("윈터");
+        user4.setUserName("팜하니");
 
         userService.join(user1);
         userService.join(user2);
         userService.join(user3);
+        userService.join(user4);
 
-        assertEquals(3, userRepository.findAll().size());
+        assertEquals(4, userRepository.findAll().size());
     }
 }
