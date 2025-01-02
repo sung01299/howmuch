@@ -21,8 +21,11 @@ public class UserRepository{
         return em.createQuery("select u from User u", User.class).getResultList();
     }
 
-    public User findOne(Long id) {
-        return em.find(User.class, id);
+    public Boolean findOne(String username) {
+        User user = em.createQuery("select u from User u where u.userName = :username", User.class)
+                .setParameter("username", username)
+                .getSingleResult();
+        return user != null;
     }
 
 }

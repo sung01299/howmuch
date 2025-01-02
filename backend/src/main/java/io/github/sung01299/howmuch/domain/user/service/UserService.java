@@ -25,7 +25,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findOne(Long userId) {
-        return userRepository.findOne(userId);
+    public Boolean findOne(String username) {
+        return userRepository.findOne(username);
     }
 }
