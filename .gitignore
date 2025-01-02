@@ -38,6 +38,7 @@ out/
 
 ### GitHub
 .DS_Store
+.gitattributes
 
 ### API
 application-API-KEY.properties
