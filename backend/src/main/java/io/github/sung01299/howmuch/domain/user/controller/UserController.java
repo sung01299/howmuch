@@ -19,6 +19,7 @@ public class UserController {
 
     @PostMapping("/api/user")
     public User createUser(@RequestBody RegisterDTO userName) {
+        System.out.println("User: " + userName.toString());
         User user = new User();
         user.setUserName(userName.getUserName());
         Long createdId = userService.join(user);
@@ -35,7 +36,6 @@ public class UserController {
         Boolean exists = userService.findOne(userName);
         UserExistsResponseDTO userExists = new UserExistsResponseDTO();
         userExists.setExist(exists);
-        System.out.println("userExists = " + userExists);
         return userExists;
     }
 }

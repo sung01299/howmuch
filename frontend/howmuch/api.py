@@ -1,6 +1,7 @@
 import requests
+import json
 
-API_BASE__URL = 'https://localhost:8080'
+API_BASE__URL = 'http://localhost:8080'
 
 def check_if_user_exists(userName: str):
     try:
@@ -9,14 +10,18 @@ def check_if_user_exists(userName: str):
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f'Error checking if user {userName} exists: {e}')
-        return None
+        exit()
 
 def register_user(userName: str):
     try:
         request_body = {
             'userName': userName
         }
-        response = requests.get(f'{API_BASE__URL}/api/user', data=request_body)
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        response = requests.post(f'{API_BASE__URL}/api/user', data=json.dumps(request_body), headers=headers)
         response.raise_for_status()
         print(f'User {userName} registered successfully')
         return True

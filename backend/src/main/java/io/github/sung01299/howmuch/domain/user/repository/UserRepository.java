@@ -22,10 +22,10 @@ public class UserRepository{
     }
 
     public Boolean findOne(String username) {
-        User user = em.createQuery("select u from User u where u.userName = :username", User.class)
+        List<User> user = em.createQuery("select u from User u where u.userName = :username", User.class)
                 .setParameter("username", username)
-                .getSingleResult();
-        return user != null;
+                .getResultList();
+        return !user.isEmpty();
     }
 
 }
