@@ -3,6 +3,7 @@ package io.github.sung01299.howmuch.domain.favorites.controller;
 import io.github.sung01299.howmuch.domain.favorites.dto.FavoritesDTO;
 import io.github.sung01299.howmuch.domain.favorites.entity.Favorites;
 import io.github.sung01299.howmuch.domain.favorites.service.FavoritesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Favorites API", description = "Favorites related APIs")
 public class favoritesController {
 
     private final FavoritesService favoritesService;

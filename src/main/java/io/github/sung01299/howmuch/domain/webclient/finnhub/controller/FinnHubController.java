@@ -4,6 +4,7 @@ import io.github.sung01299.howmuch.domain.favorites.entity.Favorites;
 import io.github.sung01299.howmuch.domain.favorites.service.FavoritesService;
 import io.github.sung01299.howmuch.domain.webclient.finnhub.dto.PriceDTO;
 import io.github.sung01299.howmuch.domain.webclient.finnhub.service.FinnhubService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Quote API", description = "Quote related APIs")
 public class FinnHubController {
 
     private final FinnhubService finnhubService;
@@ -26,7 +28,7 @@ public class FinnHubController {
         return price;
     }
 
-    @GetMapping("/api/quote/favorites/{id}}")
+    @GetMapping("/api/quote/favorites/{id}")
     public List<PriceDTO> getFavoritesQuote(@PathVariable("id") Long userId) {
         List<Favorites> favoritesList = favoritesService.getAllFavorites(userId);
         List<PriceDTO> priceDTOList = new ArrayList<>();
