@@ -41,3 +41,6 @@ out/
 
 ### API
 application-API-KEY.properties
+
+### venv
+.venv
