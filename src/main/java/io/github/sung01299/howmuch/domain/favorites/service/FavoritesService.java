@@ -20,8 +20,8 @@ public class FavoritesService {
         return favoritesRepository.getAllFavorites(userId);
     }
 
-    public void addFavorites(Long userId, String ticker, String fullName) {
-        favoritesRepository.addFavorites(userId, ticker, fullName);
+    public void addFavorites(Long userId, String ticker) {
+        favoritesRepository.addFavorites(userId, ticker);
     }
 
     public void removeFavorites(Long userId, String ticker) {

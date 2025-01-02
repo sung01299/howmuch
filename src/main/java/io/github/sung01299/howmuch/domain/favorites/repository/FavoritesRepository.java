@@ -19,11 +19,10 @@ public class FavoritesRepository {
         em.persist(favorites);
     }
 
-    public void addFavorites(Long userId, String ticker, String fullName) {
+    public void addFavorites(Long userId, String ticker) {
         User user = em.find(User.class, userId);
         Favorites favorites = new Favorites();
         favorites.setTicker(ticker);
-        favorites.setFullName(fullName);
         favorites.setUser(user);
 
         em.persist(favorites);

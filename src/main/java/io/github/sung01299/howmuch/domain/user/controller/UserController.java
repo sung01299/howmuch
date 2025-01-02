@@ -16,10 +16,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/api/user/new")
+    @PostMapping("/api/user")
     public User createUser(@RequestBody String userName) {
         User user = new User();
-        System.out.println("userName = " + userName);
         user.setUserName(userName);
         Long createdId = userService.join(user);
         return user;

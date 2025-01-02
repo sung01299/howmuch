@@ -8,5 +8,4 @@ import lombok.Getter;
 public class FavoritesDTO {
 
     private String ticker;
-    private String fullName;
 }
