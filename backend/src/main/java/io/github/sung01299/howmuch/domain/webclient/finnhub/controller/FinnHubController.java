@@ -24,7 +24,6 @@ public class FinnHubController {
     @GetMapping("/api/quote/{symbol}")
     public PriceDTO getQuote(@PathVariable("symbol") String symbol) {
         PriceDTO price = finnhubService.quote(symbol);
-//        System.out.println("Price: " + price.toString());
         return price;
     }
 

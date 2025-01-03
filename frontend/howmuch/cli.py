@@ -5,7 +5,7 @@ import api
 
 def authenticate():
     """Handle user authentication (login/register) once."""
-    user_name = click.prompt("Please enter your user name to register or login", type=str)
+    user_name = click.prompt("Please enter your user name to login or register", type=str)
     response = api.check_if_user_exists(user_name)
     user_id = response.get('userId')
     user_exists = response.get('exist')
@@ -13,7 +13,7 @@ def authenticate():
         register_user = click.confirm(f'User "{user_name}" does not exist. Would you like to register?', default=True)
         if register_user:
             user_created = api.register_user(user_name)
-            user_id = user_created.get('userID')
+            user_id = user_created.get('userId')
             if user_created:
                 click.echo(f'User "{user_name}" registered successfully.')
                 click.echo(f'Welcome, {user_name}!')
@@ -41,18 +41,28 @@ def howmuch():
 @click.argument('symbol')
 @click.pass_context
 def quote(ctx, symbol: str):
-    """Get the current price quote."""
-    price_data = api.get_quote(symbol)
-    if price_data:
-        click.echo(f'Current price for {symbol} is {price_data["price"]}')
+    if symbol == "favorites":
+        """Get the current price quote of favorites."""
+        user_id = ctx.obj.get('user_id')
+        favorites_quotes = api.get_favorites_quote(user_id)
+        if favorites_quotes:
+            for fav_quote in favorites_quotes:
+                click.echo(f'{fav_quote.get('symbol')}: {fav_quote.get('price')}')
+        else:
+            click.echo(f'Failed to get favorites quotes for user {user_id}.')
     else:
-        click.echo(f'Error getting quote for {symbol}')
+        """Get the current price quote of a stock."""
+        price_data = api.get_quote(symbol)
+        if price_data:
+            click.echo(f'Current price for {symbol} is {price_data["price"]}')
+        else:
+            click.echo(f'Error getting quote for {symbol}')
 
 @howmuch.command()
 @click.argument('symbol')
 @click.pass_context
 def add(ctx, symbol: str):
-    """Add a new item."""
+    """Add a new stock to favorites."""
     user_id = ctx.obj.get('user_id')
     success = api.add_to_favorites(user_id, symbol)
     if success:
@@ -69,11 +79,11 @@ def get(ctx, keyword: str):
         user_id = ctx.obj.get('user_id')
         favorites = api.get_favorites(user_id)
         if favorites:
-            # click.echo(f'Favorites for user {user_id}: {favorites}')
-            for fav in favorites:
-                click.echo(fav)
+            for idx, fav in enumerate(favorites):
+                click.echo(f'{idx+1}. {fav.get('ticker')}')
         else:
             click.echo(f'Failed to get favorites for user {user_id}.')
+
 
 def main_loop():
     """Main interactive loop for CLI."""

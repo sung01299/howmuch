@@ -47,7 +47,6 @@ def add_to_favorites(user_id: float, symbol: str):
         }
         response = requests.post(f'{API_BASE__URL}/api/favorites/{user_id}', data=json.dumps(request_body), headers=headers)
         response.raise_for_status()
-        print(f'{symbol} added to favorites for user {user_id}')
         return True
     except requests.exceptions.RequestException as e:
         print(f'Error adding {symbol} to favorites for user {user_id}: {e}')
