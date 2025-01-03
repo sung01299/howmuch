@@ -23,8 +23,7 @@ def register_user(userName: str):
 
         response = requests.post(f'{API_BASE__URL}/api/user', data=json.dumps(request_body), headers=headers)
         response.raise_for_status()
-        print(f'User {userName} registered successfully')
-        return True
+        return response.json()
     except requests.exceptions.RequestException as e:
         print(f'Error registering user {userName}: {e}')
         return None
@@ -43,7 +42,10 @@ def add_to_favorites(user_id: float, symbol: str):
         request_body = {
             "ticker": symbol
         }
-        response = requests.post(f'{API_BASE__URL}/api/favorite/{user_id}', data=request_body)
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        response = requests.post(f'{API_BASE__URL}/api/favorites/{user_id}', data=json.dumps(request_body), headers=headers)
         response.raise_for_status()
         print(f'{symbol} added to favorites for user {user_id}')
         return True
@@ -53,7 +55,7 @@ def add_to_favorites(user_id: float, symbol: str):
 
 def get_favorites(user_id: float):
     try:
-        response = requests.get(f'{API_BASE__URL}/api/favorite/{user_id}')
+        response = requests.get(f'{API_BASE__URL}/api/favorites/{user_id}')
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:

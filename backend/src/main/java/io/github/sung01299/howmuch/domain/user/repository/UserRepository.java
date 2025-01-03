@@ -21,11 +21,11 @@ public class UserRepository{
         return em.createQuery("select u from User u", User.class).getResultList();
     }
 
-    public Boolean findOne(String username) {
+    public List<User> findOne(String username) {
         List<User> user = em.createQuery("select u from User u where u.userName = :username", User.class)
                 .setParameter("username", username)
                 .getResultList();
-        return !user.isEmpty();
+        return user;
     }
 
 }

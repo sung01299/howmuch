@@ -1,5 +1,6 @@
 package io.github.sung01299.howmuch.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.sung01299.howmuch.domain.favorites.entity.Favorites;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,11 +1,13 @@
 package io.github.sung01299.howmuch.domain.user.service;
 
+import io.github.sung01299.howmuch.domain.user.dto.UserExistsResponseDTO;
 import io.github.sung01299.howmuch.domain.user.entity.User;
 import io.github.sung01299.howmuch.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +27,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Boolean findOne(String username) {
-        return userRepository.findOne(username);
+    public User findOne(String username) {
+        List<User> user = userRepository.findOne(username);
+        return user.isEmpty() ? null : user.get(0);
     }
 }

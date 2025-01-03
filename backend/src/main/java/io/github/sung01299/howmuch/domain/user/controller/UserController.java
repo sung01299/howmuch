@@ -19,7 +19,6 @@ public class UserController {
 
     @PostMapping("/api/user")
     public User createUser(@RequestBody RegisterDTO userName) {
-        System.out.println("User: " + userName.toString());
         User user = new User();
         user.setUserName(userName.getUserName());
         Long createdId = userService.join(user);
@@ -33,9 +32,14 @@ public class UserController {
 
     @GetMapping("/api/user/{userName}")
     public UserExistsResponseDTO checkUserExists(@PathVariable("userName") String userName) {
-        Boolean exists = userService.findOne(userName);
+        User user = userService.findOne(userName);
         UserExistsResponseDTO userExists = new UserExistsResponseDTO();
-        userExists.setExist(exists);
+        if (user != null) {
+            userExists.setUserId(user.getUserId());
+            userExists.setExist(true);
+        } else {
+            userExists.setExist(false);
+        }
         return userExists;
     }
 }

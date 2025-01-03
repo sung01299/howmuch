@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,9 +17,19 @@ public class favoritesController {
 
     private final FavoritesService favoritesService;
 
+    /*
+     양방향 참조 문제 발생 -> 해결해야함!!
+     */
     @GetMapping("/api/favorites/{id}")
-    public List<Favorites> getAllFavorites(@PathVariable("id") Long userId) {
-        return favoritesService.getAllFavorites(userId);
+    public List<FavoritesDTO> getAllFavorites(@PathVariable("id") Long userId) {
+        List<Favorites> allFavorites = favoritesService.getAllFavorites(userId);
+        List<FavoritesDTO> favoritesDTOList = new ArrayList<>();
+        for (Favorites favorites : allFavorites) {
+            FavoritesDTO favoritesDTO = new FavoritesDTO();
+            favoritesDTO.setTicker(favorites.getTicker());
+            favoritesDTOList.add(favoritesDTO);
+        }
+        return favoritesDTOList;
     }
 
     @PostMapping("/api/favorites/{id}")
