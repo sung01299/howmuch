@@ -1,4 +1,4 @@
-package io.github.sung01299.howmuch.config.swagger;
+package io.github.sung01299.howmuch.global.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
